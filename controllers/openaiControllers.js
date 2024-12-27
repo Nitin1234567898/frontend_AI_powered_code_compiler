@@ -46,3 +46,38 @@ exports.explain = async (req, res) => {
     }
 };
 
+exports.complexity = async(req,res) => {
+    try {
+        const {code} = req.body;
+        if(!code){
+            return res.status(400).json({ error: "Code input is required" });
+        }
+        const responseSchema = z.object({
+            timeComplexity : z.string(),
+            spaceComplexity : z.string(),
+            explanation : z.string(),
+        })
+        const response = await openai.beta.chat.completions.parse({
+            model: "gpt-4o-mini",
+            messages : [    
+                {role : "developer",
+                    content : "give the time and space complexity for the given code"
+                },{
+                    role : "user",
+                    content : `${code}`
+                },
+            ],
+            response_format : zodResponseFormat(responseSchema,"complexityAnalysis"),
+        })
+        if (!response || !responseSchema.safeParse(response)) {
+            throw new Error("Invalid response from OpenAI API.");
+          }
+
+        return res.status(200).json(response);
+        
+    } catch (error) {
+        console.error("Error in complexity controller", error.message);
+        return res.status(500).json({error : error.message})
+    }
+};
+
