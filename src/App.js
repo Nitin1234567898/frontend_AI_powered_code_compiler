@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import Navbar from './components/Navbar';
 import CodeEditor from './components/Codeeditor';
 import Chatbox from "./components/Chatbox";
+
 function App() {
   const [darkMode, setDarkMode] = useState(false); // Manage dark mode state for the app
 
@@ -21,11 +22,11 @@ function App() {
             </div>
 
             {/* Input Section */}
-            <div className={`input-box mt-3 ${darkMode ? 'bg-dark text-white' : ''}`}>
+            <div className={`input-box mt-3 ${darkMode ? 'dark-mode' : ''}`}>
               <h5>Input</h5>
               <textarea
                 id="code-input"
-                className={`form-control ${darkMode ? 'bg-dark text-white' : ''}`}
+                className={`form-control ${darkMode ? 'dark-mode' : ''}`}
                 placeholder="Enter your input for the code here..."
                 rows="5"
               ></textarea>
@@ -39,9 +40,9 @@ function App() {
             </div>
 
             {/* Dedicated Output Section */}
-            <div className={`output-section mt-3 ${darkMode ? 'bg-dark text-white' : ''}`} style={{ flex: '0 1 200px' }}>
+            <div className={`output-section mt-3 ${darkMode ? 'dark-mode' : ''}`} style={{ flex: '0 1 200px' }}>
               <h5>Output</h5>
-              <pre id="output" className={`output-box ${darkMode ? 'bg-dark text-white' : ''}`}>
+              <pre id="output" className={`output-box ${darkMode ? 'dark-mode' : ''}`}>
                 {/* Static output text can be placed here */}
               </pre>
             </div>
